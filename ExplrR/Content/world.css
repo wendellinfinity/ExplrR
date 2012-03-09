@@ -1,0 +1,20 @@
+﻿.world 
+{
+    width:250px;
+    height:250px;
+}
+
+.latitude 
+{
+    width:50px;
+    height:inherit;
+    float:left;
+}
+
+.latitude .longtitude 
+{
+    width:inherit;
+    height:50px;
+    border:1px dashed #AAAAAA;
+    float:left;
+}

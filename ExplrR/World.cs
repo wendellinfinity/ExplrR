@@ -10,7 +10,7 @@ namespace ExplrR {
     public class World : Hub {
         
         // 1. we changed our parameter now to "explorer"
-        public void Explore(string explorer) {
+        public void Explore(string explorer, string group) {
             // 2. let us instantiate a JSON serializer to parse our JSON object
             var serializer = new JavaScriptSerializer();
             // 3. deserialize the JSON string, 'explorer' which was sent from the client
@@ -19,7 +19,18 @@ namespace ExplrR {
             explorerInstance.Location.X += 1;
             explorerInstance.Location.Y += 1;
             // 5. then we can send the serialized object to JSON string again to the client 'updateExplorer' handler
-            Clients.updateExplorer(serializer.Serialize(explorerInstance));
+            if (group != null && group != "") {
+                explorerInstance.Name = Context.ConnectionId;
+                Clients["kuma"].updateExplorer(serializer.Serialize(explorerInstance));
+            }
+            else {
+                Clients.updateExplorer(serializer.Serialize(explorerInstance));
+            }
+            
+        }
+
+        public void Join(string group) {
+            AddToGroup("kuma");
         }
 
     }

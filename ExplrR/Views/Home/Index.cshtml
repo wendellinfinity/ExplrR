@@ -3,6 +3,9 @@
 }
 <h2>@ViewBag.Message</h2>
 <br />
+
+@section scripts
+{
 <script type="text/javascript">
     var world = $.connection.world;
     $(document).ready(function () {
@@ -13,14 +16,32 @@
         $("#tryIt").click(function () {
             var explorer;
             explorer = "{'name':'Panda','statusmessage':'I am Panda!','location':{x:10,y:10}}";
-            world.explore(explorer);
-        }); 
+            world.explore(explorer, "");
+        });
+        $("#joinGroup").click(function () {
+            world.join("kuma");
+        });
+        $("#groupTry").click(function () {
+            var explorer;
+            explorer = "{'name':'Kuma','statusmessage':'I am Kuma!','location':{x:10,y:10}}";
+            world.explore(explorer, "kuma");
+        });
         $.connection.hub.start();
     });
 </script>
+}
+
 <div>
     <div class="events">
     </div>
     <br />
     <input id="tryIt" type="button" value="Try It!" />
+    <br />
+    <input id="joinGroup" type="button" value="Join Group" />
+    <br />
+    <input id="groupTry" type="button" value="Group Try" />
+</div>
+<br />
+<div>
+    @Html.Action("Map","World")
 </div>
